@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Yuki Store - Quản Lý Tài Khoản</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="style1.css" />
+  </head>
+  <body>
+    <!-- TOP-BAR -->
+    <div class="top-bar">
+      <div class="top-bar-inner">
+        <div class="top-bar-left">
+          <span><i class="fas fa-phone-alt"></i> Hotline: 1900 6868</span>
+          <span class="divider">|</span>
+          <span><i class="fas fa-shield-alt"></i> Hàng chính hãng 100%</span>
+        </div>
+        <div class="top-bar-right">
+          <button class="theme-toggle-btn" onclick="toggleTheme()" id="themeToggleBtn">
+            <i class="fas fa-moon"></i> <span id="themeText">Chế độ tối</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+      <div class="nav-center">
+        <div class="nav-left">
+          <a href="index.html" class="logo"><i class="fas fa-shopping-bag"></i> YUKI STORE</a>
+        </div>
+        <ul class="nav-links">
+          <li>
+            <a href="index.html" class="nav-link"><i class="fas fa-home"></i> Trang Chủ</a>
+          </li>
+          <li>
+            <a href="products.html" class="nav-link"><i class="fas fa-th-large"></i> Sản Phẩm</a>
+          </li>
+          <li id="auth-nav-item">
+            <a href="profile.html" class="nav-link active"
+              ><i class="fas fa-user-cog"></i> Quản lý tài khoản</a
+            >
+          </li>
+          <li>
+            <a href="cart.html" class="nav-link cart-btn">
+              <i class="fas fa-shopping-cart"></i> Giỏ Hàng
+              <span id="cart-count" class="badge">0</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- NỘI DUNG QUẢN LÝ TÀI KHOẢN -->
+    <div class="container" style="margin-top: 35px; max-width: 900px">
+      <div class="section-header">
+        <h2 class="section-title"><i class="fas fa-id-card"></i> QUẢN LÝ THÔNG TIN TÀI KHOẢN</h2>
+      </div>
+
+      <div class="profile-card">
+        <div class="profile-avatar-box">
+          <div class="profile-avatar"><i class="fas fa-user-circle"></i></div>
+          <h3 id="profileGreeting">Xin chào, Bạn</h3>
+          <p class="profile-role">Thành viên thân thiết Yuki Store</p>
+        </div>
+
+        <form id="profileForm" onsubmit="handleUpdateProfile(event)" novalidate>
+          <div class="profile-grid">
+            <div class="form-group">
+              <label>Họ và tên *</label>
+              <input type="text" id="profFullname" class="form-control" required />
+              <small class="error-text" id="err-profFullname"></small>
+            </div>
+            <div class="form-group">
+              <label>Tên đăng nhập (Username) *</label>
+              <input type="text" id="profUsername" class="form-control" required />
+              <small class="error-text" id="err-profUsername"></small>
+            </div>
+            <div class="form-group">
+              <label>Địa chỉ Email *</label>
+              <input type="email" id="profEmail" class="form-control" required />
+              <small class="error-text" id="err-profEmail"></small>
+            </div>
+            <div class="form-group">
+              <label>Số điện thoại (10 chữ số) *</label>
+              <input
+                type="tel"
+                id="profPhone"
+                class="form-control"
+                placeholder="09xxxxxxxx"
+                required
+              />
+              <small class="error-text" id="err-profPhone"></small>
+            </div>
+            <div class="form-group" style="grid-column: 1 / -1">
+              <label>Mật khẩu mới (Để trống nếu không muốn đổi)</label>
+              <input
+                type="password"
+                id="profPassword"
+                class="form-control"
+                placeholder="Nhập mật khẩu mới từ 6 ký tự trở lên..."
+              />
+              <small class="error-text" id="err-profPassword"></small>
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            class="btn btn-primary"
+            style="padding: 13px 30px; font-size: 14px; margin-top: 10px"
+          >
+            <i class="fas fa-save"></i> LƯU THAY ĐỔI THÔNG TIN
+          </button>
+        </form>
+
+        <div class="profile-actions-bar">
+          <button type="button" class="btn btn-outline" onclick="handleSwitchAccount()">
+            <i class="fas fa-exchange-alt"></i> Đổi tài khoản đăng nhập
+          </button>
+          <button type="button" class="btn btn-outline" onclick="handleRegisterAnother()">
+            <i class="fas fa-user-plus"></i> Đăng ký tài khoản khác
+          </button>
+          <button type="button" class="btn btn-danger-outline" onclick="handleLogout()">
+            <i class="fas fa-sign-out-alt"></i> Đăng xuất
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="toast-container"></div>
+    <script src="main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Yuki Store - Trang Chủ</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
+    <link rel="stylesheet" href="style1.css" />
+  </head>
+  <body>
+    <!-- TOP-BAR -->
+    <div class="top-bar">
+      <div class="top-bar-inner">
+        <div class="top-bar-left">
+          <span><i class="fas fa-phone-alt"></i> Hotline: 1900 6868</span>
+          <span class="divider">|</span>
+          <span><i class="fas fa-shield-alt"></i> Hàng chính hãng 100%</span>
+          <span class="divider">|</span>
+          <span><i class="fas fa-bolt"></i> Flash Sale giảm tới 50%!</span>
+        </div>
+        <div class="top-bar-right">
+          <!-- Chuyển đổi Dark / Light mode -->
+          <button class="theme-toggle-btn" onclick="toggleTheme()" id="themeToggleBtn">
+            <i class="fas fa-moon"></i> <span id="themeText">Chế độ tối</span>
+          </button>
+          <span class="divider">|</span>
+          <a href="javascript:void(0)" onclick="refreshOnlineImages()"
+            ><i class="fas fa-sync-alt"></i> Làm mới ảnh</a
+          >
+        </div>
+      </div>
+    </div>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+      <div class="nav-center">
+        <div class="nav-left">
+          <button class="menu-toggle-btn" onclick="toggleSidebarMenu()">
+            <i class="fas fa-bars"></i>
+          </button>
+          <a href="index.html" class="logo"><i class="fas fa-shopping-bag"></i> YUKI STORE</a>
+        </div>
+
+        <div class="search-bar">
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Bạn cần tìm gì? (Áo, Giày, Balo, Phím cơ...)"
+            onkeypress="handleSearchKey(event)"
+          />
+          <button onclick="searchProducts()"><i class="fas fa-search"></i> Tìm kiếm</button>
+        </div>
+
+        <ul class="nav-links">
+          <li>
+            <a href="index.html" class="nav-link active"><i class="fas fa-home"></i> Trang Chủ</a>
+          </li>
+          <li>
+            <a href="products.html" class="nav-link"><i class="fas fa-th-large"></i> Sản Phẩm</a>
+          </li>
+          <li id="auth-nav-item">
+            <a href="login.html" class="nav-link"><i class="fas fa-user-circle"></i> Đăng nhập</a>
+          </li>
+          <li>
+            <a href="cart.html" class="nav-link cart-btn">
+              <i class="fas fa-shopping-cart"></i> Giỏ Hàng
+              <span id="cart-count" class="badge">0</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- SIDEBAR DRAWER -->
+    <div id="sidebar-overlay" class="sidebar-overlay" onclick="toggleSidebarMenu()"></div>
+    <aside id="sidebar-menu" class="sidebar-menu">
+      <div class="sidebar-header">
+        <div class="sidebar-title"><i class="fas fa-compass"></i> TÍNH NĂNG HỆ THỐNG</div>
+        <button class="sidebar-close" onclick="toggleSidebarMenu()">&times;</button>
+      </div>
+      <div class="sidebar-body">
+        <div class="sidebar-section-label">ĐIỀU HƯỚNG TRANG</div>
+        <a href="index.html"><i class="fas fa-home"></i> Trang Chủ</a>
+        <a href="products.html"><i class="fas fa-th-large"></i> Tất Cả Sản Phẩm</a>
+        <div class="sidebar-section-label">MUA SẮM & TÀI KHOẢN</div>
+        <a href="cart.html"><i class="fas fa-shopping-cart"></i> Giỏ Hàng Của Bạn</a>
+        <a href="checkout.html"><i class="fas fa-credit-card"></i> Thủ Tục Thanh Toán</a>
+        <a href="login.html" id="sidebar-auth-link"
+          ><i class="fas fa-user-circle"></i> Đăng Nhập / Đăng Ký</a
+        >
+        <div class="sidebar-section-label">TIỆN ÍCH</div>
+        <a href="#location" onclick="toggleSidebarMenu()"
+          ><i class="fas fa-map-marked-alt"></i> Bản Đồ Cửa Hàng</a
+        >
+        <a href="javascript:void(0)" onclick="openChatFromSidebar()"
+          ><i class="fas fa-comments"></i> Hỗ Trợ Trực Tuyến</a
+        >
+      </div>
+    </aside>
+
+    <!-- SLIDER -->
+    <div class="slider-container" id="main-slider">
+      <img
+        id="banner-img"
+        src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1400&auto=format&fit=crop&q=80"
+        alt="Banner"
+      />
+      <div class="banner-text">
+        <h1>THỜI TRANG & CÔNG NGHỆ HIỆN ĐẠI</h1>
+        <p>Săn sale cực chất • Miễn phí vận chuyển toàn quốc • Ưu đãi tới 50%</p>
+      </div>
+      <button class="slider-btn left" onclick="changeSlide(-1)">&#10094;</button>
+      <button class="slider-btn right" onclick="changeSlide(1)">&#10095;</button>
+    </div>
+
+    <!-- CAM KẾT DỊCH VỤ -->
+    <div class="shop-features">
+      <div class="feature-item">
+        <i class="fas fa-shipping-fast"></i>
+        <div>
+          <b>Giao Hàng Miễn Phí</b>
+          <p>Cho đơn từ 200K</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <i class="fas fa-shield-alt"></i>
+        <div>
+          <b>Chính Hãng 100%</b>
+          <p>Cam kết chất lượng</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <i class="fas fa-undo-alt"></i>
+        <div>
+          <b>Đổi Trả 7 Ngày</b>
+          <p>Nhanh chóng thuận tiện</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <i class="fas fa-headset"></i>
+        <div>
+          <b>Hỗ Trợ 24/7</b>
+          <p>Tư vấn tận tâm</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- NỘI DUNG SẢN PHẨM TRANG CHỦ -->
+    <div class="container">
+      <div class="deal-header-wrapper">
+        <div class="deal-top-bar">
+          <div class="deal-title-group">
+            <span class="flash-badge"><i class="fas fa-bolt"></i> GIỜ VÀNG GIÁ SỐC</span>
+            <h2 class="main-deal-title">GỢI Ý HÔM NAY</h2>
+          </div>
+          <div class="countdown-container">
+            <span class="countdown-label"><i class="far fa-clock"></i> KẾT THÚC TRONG</span>
+            <div class="countdown-timer">
+              <span class="timer-box" id="timer-hours">02</span><span class="timer-colon">:</span>
+              <span class="timer-box" id="timer-minutes">45</span><span class="timer-colon">:</span>
+              <span class="timer-box" id="timer-seconds">30</span>
+            </div>
+          </div>
+        </div>
+        <p class="deal-subtitle">
+          Tuyển chọn các sản phẩm thịnh hành nhất hôm nay • Giảm sốc đến 50%
+        </p>
+
+        <div class="deal-tags-bar">
+          <span class="deal-tag active"><i class="fas fa-fire"></i> Hot Nhất</span>
+          <span class="deal-tag"><i class="fas fa-tags"></i> Giảm Sâu 50%</span>
+          <span class="deal-tag"><i class="fas fa-coins"></i> Dưới 250K</span>
+          <span class="deal-tag"><i class="fas fa-shipping-fast"></i> Freeship 0Đ</span>
+          <span class="deal-tag"><i class="fas fa-star"></i> Đánh Giá 5 Sao</span>
+        </div>
+      </div>
+
+      <div id="hot-products" class="product-grid"></div>
+
+      <div class="section-header" style="margin-top: 45px">
+        <h2 class="section-title">HÀNG MỚI VỀ</h2>
+      </div>
+      <div id="new-products" class="product-grid"></div>
+    </div>
+
+    <!-- BẢN ĐỒ -->
+    <div id="location">
+      <div class="container" style="box-shadow: none; background: transparent; padding: 0">
+        <div class="section-header">
+          <h2 class="section-title">HỆ THỐNG CỬA HÀNG YUKI STORE</h2>
+        </div>
+        <div id="map" style="height: 380px; width: 100%; border-radius: 8px"></div>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="footer-container">
+        <div class="footer-column">
+          <h3>Về Yuki Store</h3>
+          <ul class="footer-links">
+            <li><a href="#">Giới thiệu công ty</a></li>
+            <li><a href="#">Tuyển dụng nhân sự</a></li>
+            <li><a href="#">Chính sách bảo mật</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3>Chăm sóc khách hàng</h3>
+          <ul class="footer-links">
+            <li><a href="#">Trung tâm trợ giúp</a></li>
+            <li><a href="#">Chính sách hoàn tiền</a></li>
+            <li><a href="#">Bảo hành điện tử</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3>Theo dõi chúng tôi</h3>
+          <div class="footer-socials">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-tiktok"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 Bản quyền thuộc về Yuki Store - FPT Polytechnic.</p>
+      </div>
+    </footer>
+
+    <!-- CHATBOX -->
+    <div class="chat-widget-btn" onclick="toggleChat()"><i class="fas fa-comments"></i></div>
+    <div class="chat-box-container" id="chatBox">
+      <div class="chat-header">
+        <span>Yuki Store Hỗ Trợ</span><i class="fas fa-times" onclick="toggleChat()"></i>
+      </div>
+      <div class="chat-body" id="chatBody">
+        <div class="chat-message bot">Dạ Yuki Store xin chào! Em có thể giúp gì cho mình ạ?</div>
+      </div>
+      <div class="chat-input">
+        <input
+          type="text"
+          id="userInput"
+          placeholder="Nhập tin nhắn..."
+          onkeypress="handleChatKey(event)"
+        />
+        <button onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
+      </div>
+    </div>
+
+    <div id="toast-container"></div>
+    <script src="main.js"></script>
+  </body>
+</html>

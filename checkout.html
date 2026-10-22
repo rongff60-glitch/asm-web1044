@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Yuki Store - Thanh Toán Đơn Hàng</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="style1.css" />
+  </head>
+  <body>
+    <!-- TOP-BAR -->
+    <div class="top-bar">
+      <div class="top-bar-inner">
+        <div class="top-bar-left">
+          <span><i class="fas fa-phone-alt"></i> Hotline: 1900 6868</span>
+          <span class="divider">|</span>
+          <span><i class="fas fa-shield-alt"></i> Hàng chính hãng 100%</span>
+        </div>
+        <div class="top-bar-right">
+          <button class="theme-toggle-btn" onclick="toggleTheme()" id="themeToggleBtn">
+            <i class="fas fa-moon"></i> <span id="themeText">Chế độ tối</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <nav class="navbar">
+      <div class="nav-center">
+        <div class="nav-left">
+          <a href="index.html" class="logo"><i class="fas fa-shopping-bag"></i> YUKI STORE</a>
+        </div>
+        <ul class="nav-links">
+          <li>
+            <a href="index.html" class="nav-link"><i class="fas fa-home"></i> Trang Chủ</a>
+          </li>
+          <li>
+            <a href="products.html" class="nav-link"><i class="fas fa-th-large"></i> Sản Phẩm</a>
+          </li>
+          <li id="auth-nav-item">
+            <a href="login.html" class="nav-link"><i class="fas fa-user-circle"></i> Đăng nhập</a>
+          </li>
+          <li>
+            <a href="cart.html" class="nav-link cart-btn">
+              <i class="fas fa-shopping-cart"></i> Giỏ Hàng
+              <span id="cart-count" class="badge">0</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="container" style="margin-top: 30px">
+      <div class="section-header">
+        <h2 class="section-title">XÁC NHẬN THANH TOÁN</h2>
+      </div>
+
+      <div class="checkout-layout">
+        <!-- Cột trái: Tóm tắt đơn hàng & Voucher -->
+        <div class="checkout-left-column">
+          <div class="checkout-card">
+            <div class="card-title">
+              <i class="fas fa-shopping-bag"></i> Danh Sách Sản Phẩm Đặt Mua
+            </div>
+            <div id="checkout-info"></div>
+          </div>
+
+          <div class="checkout-card voucher-card">
+            <div class="card-title">
+              <i class="fas fa-ticket-alt"></i> Mã Giảm Giá / Voucher Yuki
+            </div>
+            <div class="voucher-box">
+              <input
+                type="text"
+                id="voucherInput"
+                placeholder="Nhập mã (Thử: YUKI20 hoặc FREESHIP)"
+              />
+              <button type="button" class="btn btn-outline" onclick="applyVoucher()">
+                Áp Dụng
+              </button>
+            </div>
+            <small
+              id="voucherMsg"
+              style="display: block; margin-top: 6px; font-weight: 600"
+            ></small>
+          </div>
+
+          <div class="checkout-card">
+            <div class="card-title"><i class="fas fa-wallet"></i> Phương Thức Thanh Toán</div>
+            <div class="payment-options">
+              <label class="payment-radio">
+                <input type="radio" name="paymentMethod" value="cod" checked />
+                <div class="payment-text">
+                  <b><i class="fas fa-truck"></i> Thanh toán khi nhận hàng (COD)</b>
+                  <p>Thanh toán bằng tiền mặt khi nhận được kiện hàng</p>
+                </div>
+              </label>
+              <label class="payment-radio">
+                <input type="radio" name="paymentMethod" value="banking" />
+                <div class="payment-text">
+                  <b><i class="fas fa-university"></i> Chuyển khoản qua VietQR</b>
+                  <p>Quét mã tiện lợi, tự động kiểm tra đơn hàng</p>
+                </div>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cột phải: Form thông tin nhận hàng -->
+        <div class="checkout-right-column">
+          <div class="contact-form">
+            <div class="card-title" style="margin-bottom: 20px">
+              <i class="fas fa-map-marker-alt"></i> Địa Chỉ Nhận Hàng
+            </div>
+            <form id="orderForm" onsubmit="checkout(event)">
+              <div class="form-group">
+                <label>Họ và tên người nhận *</label>
+                <input
+                  type="text"
+                  id="cusName"
+                  placeholder="Nguyễn Văn A"
+                  class="form-control"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label>Email nhận hóa đơn *</label>
+                <input
+                  type="email"
+                  id="cusEmail"
+                  placeholder="example@email.com"
+                  class="form-control"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label>Số điện thoại liên hệ *</label>
+                <input
+                  type="tel"
+                  id="cusPhone"
+                  placeholder="0901 234 567"
+                  class="form-control"
+                  required
+                  pattern="[0-9]{9,11}"
+                  title="Vui lòng nhập 9-11 chữ số"
+                />
+              </div>
+              <div class="form-group">
+                <label>Địa chỉ giao hàng chi tiết *</label>
+                <textarea
+                  id="cusAddress"
+                  placeholder="Số nhà, tên đường, phường/xã..."
+                  class="form-control"
+                  required
+                  rows="3"
+                ></textarea>
+              </div>
+              <button type="submit" class="btn submit-btn">
+                <i class="fas fa-check-circle"></i> ĐẶT HÀNG NGAY
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="toast-container"></div>
+    <script src="main.js"></script>
+  </body>
+</html>

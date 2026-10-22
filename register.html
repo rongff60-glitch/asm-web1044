@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Yuki Store - Đăng Ký Tài Khoản</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="style1.css" />
+  </head>
+  <body>
+    <!-- TOP-BAR -->
+    <div class="top-bar">
+      <div class="top-bar-inner">
+        <div class="top-bar-left">
+          <span><i class="fas fa-phone-alt"></i> Hotline: 1900 6868</span>
+        </div>
+        <div class="top-bar-right">
+          <button class="theme-toggle-btn" onclick="toggleTheme()" id="themeToggleBtn">
+            <i class="fas fa-moon"></i> <span id="themeText">Chế độ tối</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <nav class="navbar">
+      <div class="nav-center">
+        <div class="nav-left">
+          <a href="index.html" class="logo"><i class="fas fa-shopping-bag"></i> YUKI STORE</a>
+        </div>
+        <ul class="nav-links">
+          <li>
+            <a href="index.html" class="nav-link"><i class="fas fa-home"></i> Trang Chủ</a>
+          </li>
+          <li>
+            <a href="products.html" class="nav-link"><i class="fas fa-th-large"></i> Sản Phẩm</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="auth-page-wrapper">
+      <div class="auth-card">
+        <div class="auth-header">
+          <h2>TẠO TÀI KHOẢN</h2>
+          <p>Đăng ký thành viên để nhận hàng ngàn ưu đãi</p>
+        </div>
+
+        <form id="register-form-page" onsubmit="handleRegisterPage(event)" novalidate>
+          <div class="form-group">
+            <label>Họ và tên của bạn *</label>
+            <input
+              type="text"
+              id="regName"
+              class="form-control"
+              placeholder="Ví dụ: Nguyễn Văn A"
+            />
+            <small class="error-text" id="err-regName"></small>
+          </div>
+          <div class="form-group">
+            <label>Tên đăng nhập *</label>
+            <input
+              type="text"
+              id="regUsername"
+              class="form-control"
+              placeholder="Tên viết liền không dấu..."
+            />
+            <small class="error-text" id="err-regUsername"></small>
+          </div>
+          <div class="form-group">
+            <label>Địa chỉ Email *</label>
+            <input
+              type="email"
+              id="regEmail"
+              class="form-control"
+              placeholder="email@example.com"
+            />
+            <small class="error-text" id="err-regEmail"></small>
+          </div>
+          <!-- Ô nhập số điện thoại đúng 10 số -->
+          <div class="form-group">
+            <label>Số điện thoại (10 chữ số) *</label>
+            <input
+              type="tel"
+              id="regPhone"
+              class="form-control"
+              placeholder="Ví dụ: 0912345678"
+              maxlength="10"
+            />
+            <small class="error-text" id="err-regPhone"></small>
+          </div>
+          <div class="form-group">
+            <label>Mật khẩu (tối thiểu 6 ký tự) *</label>
+            <input
+              type="password"
+              id="regPass"
+              class="form-control"
+              placeholder="Nhập mật khẩu..."
+            />
+            <small class="error-text" id="err-regPass"></small>
+          </div>
+          <div class="form-group">
+            <label>Nhập lại mật khẩu *</label>
+            <input
+              type="password"
+              id="regConfirmPass"
+              class="form-control"
+              placeholder="Xác nhận lại mật khẩu..."
+            />
+            <small class="error-text" id="err-regConfirmPass"></small>
+          </div>
+
+          <button type="submit" class="btn submit-btn" style="margin-top: 10px">
+            <i class="fas fa-user-plus"></i> ĐĂNG KÝ TÀI KHOẢN
+          </button>
+        </form>
+
+        <div class="auth-footer">
+          <p>Đã có tài khoản? <a href="login.html">Đăng nhập tại đây</a></p>
+          <p style="margin-top: 8px">
+            <a href="index.html"><i class="fas fa-arrow-left"></i> Quay về Trang Chủ</a>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div id="toast-container"></div>
+    <script src="main.js"></script>
+  </body>
+</html>
